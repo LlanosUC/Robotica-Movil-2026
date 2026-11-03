@@ -1,0 +1,8 @@
+<launch>
+	<include file="$(find-pkg-share kobuki_node)/launch/kobuki_node-launch.py" />
+	<node pkg="kinect_ros2" exec="kinect_ros2_node" name="kinect_ros2_node" namespace="kinect"/>
+	<node pkg="lab2" exec="seguidor_objeto.py"/>
+	<node pkg="lab2" exec="detector_objeto.py"/>
+	<node pkg="lab2" exec="p_controller_parte3.py"/>
+
+</launch>

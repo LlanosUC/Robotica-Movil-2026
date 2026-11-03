@@ -1,0 +1,15 @@
+# Logs y archivos generados por experimentos
+*.csv
+*.zip
+*.pdf
+
+# Archivos y carpetas de compilación de ROS 2
+build/
+install/
+log/
+
+# Archivos de caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+very_simple_robot_simulator/

@@ -1,0 +1,17 @@
+<launch>
+
+        <include file="$(find-pkg-share very_simple_robot_simulator)/launch/run_all.xml" />
+
+        <arg name="file_name" default="pose_list.txt"/>
+	
+	<node pkg="lab2" exec="follow_the_carrot.py"/>
+	<node pkg="lab2" exec="p_controller_c.py"/>
+	<node pkg="lab2" exec="trajectory_plotter.py"/>
+        <!--Parametro por consola para elegir pose de movimiento en cuadrado (pose_list.txt)
+        o lista de poses arbitaria (pose_list2.txt) o trayectoria de curva-->
+        <node pkg="lab2" exec="pose_loader.py">
+                <param name="file_name" value="$(var file_name)"/>
+        </node>
+
+
+</launch>
