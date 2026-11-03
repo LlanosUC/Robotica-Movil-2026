@@ -17,15 +17,20 @@ class PController( Node ):
     self.tol_centrado = 25    
 
     self.setpoint = None
-    self.is_goal = False         
+    self.goal_lost = False         
+    self.goal_depth = False
     
     self.actuation_pub = self.create_publisher( Twist, '/commands/velocity', 1 )
     self.setpoint_sub = self.create_subscription( Float64, 'setpoint', self.setpoint_cb, 1 )
     self.state_sub = self.create_subscription( Float64, 'state', self.state_cb, 1 )
-    self.goal_sub = self.create_subscription( Bool, 'goal_reached', self.goal_cb, 1 )
+    self.goal_sub = self.create_subscription( Bool, 'goal_lost', self.goal_lost_cb, 1 )
+    self.goal_depth_sub = self.create_subscription( Bool, 'goal_depth', self.goal_depth_cb, 1 )
 
-  def goal_cb( self, msg ):
-    self.is_goal = msg.data
+  def goal_lost_cb( self, msg ):
+    self.goal_lost = msg.data
+
+  def goal_depth_cb(self, msg):
+    self.goal_depth = msg.data
 
   def setpoint_cb( self, msg ):
     self.setpoint = msg.data
@@ -33,6 +38,8 @@ class PController( Node ):
   def state_cb( self, msg ):
     if self.setpoint is None:
       return
+
+    is_goal = self.goal_depth or self.goal_lost
 
     state = msg.data
     error = self.setpoint - state
@@ -44,7 +51,7 @@ class PController( Node ):
 
     cmd = Twist()
 
-    if not self.is_goal:
+    if not is_goal:
       cmd.angular.z = actuation
 
       # Avanza solo cuando el cuadrado esta casi centrado

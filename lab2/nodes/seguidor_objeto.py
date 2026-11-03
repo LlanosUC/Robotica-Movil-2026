@@ -27,7 +27,7 @@ class SeguidorObjeto(Node):
  
         self.goal_pub = self.create_publisher(
             Bool,
-            'goal_reached',
+            'goal_lost',
             1
         )
 
