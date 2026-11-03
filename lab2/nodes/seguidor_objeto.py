@@ -54,10 +54,10 @@ class SeguidorObjeto(Node):
         self.goal_pub.publish(Bool(data=perdido))
  
         # Referencia: cuadrado en el centro de la imagen (posicion 0)
-        self.pub_ref_control.publish(Float64(data=0.0))
+        self.pub_ref_control.publish(Float64(data=320.0))
  
         # Salida de la planta: posicion detectada (dispara el calculo del controlador)
-        self.state_pub.publish(Float64(data=0.0 if perdido else float(self.pos)))
+        self.state_pub.publish(Float64(data=320.0 if perdido else float(self.pos)))
  
  
 def main( args = None ):

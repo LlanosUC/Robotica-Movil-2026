@@ -12,14 +12,14 @@ class PController( Node ):
     super().__init__( 'p_controller' )
 
     self.kp = kp
-    self.saturation = 1.0      
+    self.saturation = 0.5      
     self.v_lineal = 0.2         
-    self.tol_centrado = 0.15    
+    self.tol_centrado = 25    
 
     self.setpoint = None
     self.is_goal = False         
     
-    self.actuation_pub = self.create_publisher( Twist, '/cmd_vel', 1 )
+    self.actuation_pub = self.create_publisher( Twist, '/commands/velocity', 1 )
     self.setpoint_sub = self.create_subscription( Float64, 'setpoint', self.setpoint_cb, 1 )
     self.state_sub = self.create_subscription( Float64, 'state', self.state_cb, 1 )
     self.goal_sub = self.create_subscription( Bool, 'goal_reached', self.goal_cb, 1 )
@@ -57,7 +57,7 @@ class PController( Node ):
 
 def main():
   rclpy.init()
-  p_ctrl = PController( kp=1.0 )
+  p_ctrl = PController( kp=0.03 )
   rclpy.spin( p_ctrl )
 
 

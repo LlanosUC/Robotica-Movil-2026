@@ -5,7 +5,7 @@ import numpy as np
 import cv2 as cv
 from rclpy.node import Node 
 from sensor_msgs.msg import Image
-from std_msgs.msg import UInt16
+from std_msgs.msg import UInt16, Bool
 import cv_bridge
 
 class DetectorObjeto(Node):
@@ -21,13 +21,13 @@ class DetectorObjeto(Node):
 
         self.rgb_img = self.create_subscription(
            Image,
-           '/camera/rgb/image_color',
+           '/kinect/image_raw',
            self.img_cb,
            1
         )
 
         self.bridge = cv_bridge.CvBridge()
-
+            
     def img_cb(self, msg):
 
         cv_img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
@@ -55,8 +55,7 @@ class DetectorObjeto(Node):
                 if M['m00'] != 0:
                     cX = int(M['m10'] / M['m00'])
                     self.bs_position.publish(UInt16(data=cX))
-
-
+    
 def main( args = None ):
   rclpy.init( args = args )
 
