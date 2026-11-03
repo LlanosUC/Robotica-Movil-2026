@@ -13,7 +13,7 @@ class PController( Node ):
 
     self.kp = kp
     self.saturation = 0.5      
-    self.v_lineal = 0.2         
+    self.v_lineal = 0.15         
     self.tol_centrado = 25    
 
     self.setpoint = None
@@ -23,14 +23,14 @@ class PController( Node ):
     self.actuation_pub = self.create_publisher( Twist, '/commands/velocity', 1 )
     self.setpoint_sub = self.create_subscription( Float64, 'setpoint', self.setpoint_cb, 1 )
     self.state_sub = self.create_subscription( Float64, 'state', self.state_cb, 1 )
-    self.goal_sub = self.create_subscription( Bool, 'goal_lost', self.goal_lost_cb, 1 )
-    self.goal_depth_sub = self.create_subscription( Bool, 'goal_depth', self.goal_depth_cb, 1 )
+    self.goal_sub = self.create_subscription( Bool, 'goal_reached', self.goal_lost_cb, 1 )
+   # self.goal_depth_sub = self.create_subscription( Bool, 'goal_depth', self.goal_depth_cb, 1 )
 
   def goal_lost_cb( self, msg ):
     self.goal_lost = msg.data
 
-  def goal_depth_cb(self, msg):
-    self.goal_depth = msg.data
+ # def goal_depth_cb(self, msg):
+ #   self.goal_depth = msg.data
 
   def setpoint_cb( self, msg ):
     self.setpoint = msg.data
@@ -39,7 +39,7 @@ class PController( Node ):
     if self.setpoint is None:
       return
 
-    is_goal = self.goal_depth or self.goal_lost
+    is_goal =  self.goal_lost
 
     state = msg.data
     error = self.setpoint - state
@@ -64,7 +64,7 @@ class PController( Node ):
 
 def main():
   rclpy.init()
-  p_ctrl = PController( kp=0.03 )
+  p_ctrl = PController( kp=0.02 )
   rclpy.spin( p_ctrl )
 
 
