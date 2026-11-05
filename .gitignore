@@ -2,6 +2,7 @@
 *.csv
 *.zip
 *.pdf
+*.png
 
 # Archivos y carpetas de compilación de ROS 2
 build/

@@ -92,7 +92,7 @@ class FollowTheCarrot(Node):
 
         final_point = self.path[-1]
         dist_to_final = np.linalg.norm(final_point - robot_pos)
-        goal_tolerance = 0.05
+        goal_tolerance = 0.01
 
         is_goal = bool(dist_to_final < goal_tolerance)
         self.goal_pub.publish(Bool(data=is_goal))

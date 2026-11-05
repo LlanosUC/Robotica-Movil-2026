@@ -97,7 +97,9 @@ class PIDController( Node ):
       msg.angular.z = 0.0
 
     self.actuation_pub.publish( msg )
-    self.get_logger().info(f'Error: {error:.2f} rad | Actuacion (w): {actuation:.2f} rad/s')
+
+    if not self.is_goal:
+      self.get_logger().info(f'Error: {error:.2f} rad | Actuacion (w): {actuation:.2f} rad/s')
 
   def reset( self ):
     self.setpoint = None

@@ -111,8 +111,8 @@ class PIDController( Node ):
 
 def main():
   rclpy.init()
-  p_ctrl = PIDController(kp_lin=1.0, ki_lin=0.08,
-                         kp_ang=1.2, ki_ang=0.03)
+  p_ctrl = PIDController(kp_lin=1.0, ki_lin=0.0,
+                         kp_ang=0.8, ki_ang=0.0)
   rclpy.spin( p_ctrl )
 
 if __name__ == '__main__':

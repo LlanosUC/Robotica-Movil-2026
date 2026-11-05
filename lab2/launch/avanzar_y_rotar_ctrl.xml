@@ -5,5 +5,8 @@
 	<node pkg="lab2" exec="pose_loader.py"/>
 	<node pkg="lab2" exec="pid_controller.py"/>
 	<node pkg="lab2" exec="state_ctrl.py"/>
+	<node pkg="lab2" exec="pose_logger.py">
+		<param name= "controller" value="P"/>
+	</node>
 
 </launch>

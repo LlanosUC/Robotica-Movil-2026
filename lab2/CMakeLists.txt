@@ -33,6 +33,11 @@ install(PROGRAMS nodes/dead_reckoning_nav.py
 		 nodes/seguidor_objeto.py
 		 nodes/trajectory_plotter.py
 		 nodes/p_controller_parte3.py
+		 nodes/pose_logger.py
+	DESTINATION lib/${PROJECT_NAME})
+
+install(PROGRAMS scripts/graficar_csv_carrot.py
+		 scripts/graficar_dead_reckoning.py
 	DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
